@@ -1,3 +1,4 @@
+*.txt
 *.map
-*.js
+src/*.js
 example/
