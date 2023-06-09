@@ -1,1 +1,0 @@
-{"version":3,"file":"basicShader.js","sourceRoot":"","sources":["basicShader.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,YAAY,EAAS,MAAM,aAAa,CAAC;AAEjD,MAAM,YAAY,GAAG;;;;;;;;;;;CAWpB,CAAC;AAEF,MAAM,cAAc,GAAG;;;;;;;EAOrB,CAAC;AAEH,MAAM,iBAAiB,GAAG,CAAC,EAAwB,EAAE,EAAE;IACnD,OAAO,YAAY,CAAC,EAAE,EAAE,YAAY,EAAE,cAAc,CAAC,CAAC;AAC1D,CAAC,CAAA;AAED,OAAO,EAAE,iBAAiB,EAAE,CAAA"}
