@@ -1,10 +1,11 @@
 const fs = require("fs");
 const path = require("path");
 
-
 const BASE_DIR = "";
 const SRC_DIR = "../src";
 const LIB_NAME = "mayhemJS.mjs";
+const TEMP_FILE_PATH = "./mayhem_temp.js";
+const MODULE_FILE_PATH = "./mayhem.js";
 
 const getDirectories = path => {
     return new Promise((resolve, reject) => {
@@ -27,14 +28,33 @@ const writeToBuild = (data) => {
    })
 }
 
+const createBundled = async(parent, subPar) => {
+    for(let name of parent) {
+        if(name.endsWith(".js")) {   // all javascript files
+            await fs.readFile(path.join(subPar, name), {encoding:"utf-8"}, (err, data) => {
+                if(err) throw err;
+                writeToBuild(data + "\n\n");
+            });
+        }
+    }
+}
+
+const createFile = (name) => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile(path.join(BASE_DIR, LIB_NAME), "", err => {
+            if(err) {
+                throw err;
+            }
+            resolve("file created");
+        });
+    });
+}
+
+
 (async function() {
 
-    await fs.writeFile(path.join(BASE_DIR, LIB_NAME), "", err => {
-        if(err) {
-            console.error(err);
-            console.error("Error While creating the module file");
-        }
-    });
+    // await createFile(TEMP_FILE_PATH);
+    // await createFile(MODULE_FILE_PATH);
 
     const parentDir = await getDirectories(SRC_DIR);
 
@@ -43,22 +63,8 @@ const writeToBuild = (data) => {
 
             const _dir = path.join(SRC_DIR, dir);
             let n = await getDirectories(path.join(SRC_DIR, dir));
+            n = n.filter(i => i.endsWith(".js")).map(i => path.join(_dir, i));
 
-            for(let src of n) {
-                if(src.endsWith(".js")) {
-                    const reader = fs.createReadStream(path.join(_dir, src), "utf-8");
-                    reader.on("data", function(chunk){
-                        let str = chunk.trim();
-                        let exc = ["import", "export"]
-                        if(!exc.some(i => str.startsWith(i))) {
-                            writeToBuild("\n"+chunk);
-                        }
-                    });
-                    reader.on("end", function(chunk) {
-                        writeToBuild("\n");
-                    })
-                }
-            }
         }
     }
 

@@ -1,6 +1,6 @@
 import {createShader, Shader} from "./shader.js";
 
-const vertexSource = `
+const basicShader_vertexSource = `
 attribute vec3 position;
 
 uniform mat4 projectionMatrix;
@@ -13,7 +13,7 @@ void main() {
 }
 `;
 
-const fragmentSource = `
+const basicShader_fragmentSource = `
 precision mediump float;
 
 uniform vec4 color;
@@ -23,7 +23,7 @@ void main() {
 }`;
 
 const createBasicShader = (gl:WebGLRenderingContext) => {
-    return createShader(gl, vertexSource, fragmentSource);
+    return createShader(gl, basicShader_vertexSource, basicShader_fragmentSource);
 }
 
 export { createBasicShader }

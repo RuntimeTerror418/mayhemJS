@@ -1,7 +1,4 @@
 export const Mat4 = {
-    /**
-     * Create an Identity Matrix
-     */
     identity() {
         return [
             1, 0, 0, 0,
@@ -10,12 +7,6 @@ export const Mat4 = {
             0, 0, 0, 1,
         ];
     },
-    /**
-     * Create a translation matrix
-     * @param tx x-translation
-     * @param ty y-translation
-     * @param tz z-translation
-     */
     translation(tx, ty, tz) {
         return [
             1, 0, 0, 0,
@@ -24,10 +15,6 @@ export const Mat4 = {
             tx, ty, tz, 1,
         ];
     },
-    /**
-     * create a rotation matrix for the x-axis
-     * @param a angle to rotate by
-     */
     xRotation(a) {
         const c = Math.cos(a);
         const s = Math.sin(a);
@@ -38,10 +25,6 @@ export const Mat4 = {
             0, 0, 0, 1,
         ];
     },
-    /**
-     * create a rotation matrix for the y-axis
-     * @param a angle to rotate by
-     */
     yRotation(a) {
         const c = Math.cos(a);
         const s = Math.sin(a);
@@ -52,10 +35,6 @@ export const Mat4 = {
             0, 0, 0, 1,
         ];
     },
-    /**
-     * create a rotation matrix for the z-axis
-     * @param a angle to rotate by
-     */
     zRotation(a) {
         const c = Math.cos(a);
         const s = Math.sin(a);
@@ -66,12 +45,6 @@ export const Mat4 = {
             0, 0, 0, 1,
         ];
     },
-    /**
-     * create a scaling matrix
-     * @param sx value to scale by on the x-axis
-     * @param sy value to scale by on the y-axis
-     * @param sz value to scale by on the z-axis
-     */
     scaling(sx, sy, sz) {
         return [
             sx, 0, 0, 0,
@@ -80,15 +53,6 @@ export const Mat4 = {
             0, 0, 0, 1,
         ];
     },
-    /**
-     * creates an orthographic projectionMatrix
-     * @param left
-     * @param right
-     * @param bottom
-     * @param top
-     * @param near
-     * @param far
-     */
     ortho(left, right, bottom, top, near, far) {
         return [
             2 / (right - left), 0, 0, 0,

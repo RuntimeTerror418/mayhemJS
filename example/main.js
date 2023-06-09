@@ -1,20 +1,21 @@
-import * as g from "../src/mayhem.js";
-import { Mat4 } from "../src/mayhem.js";
+import * as g from "../src/mayhem";
+import { Mat4 } from "../src/mayhem";
 const squareV = [
     0, 0, 0,
     0, 1, 0,
     1, 1, 0,
     1, 0, 0,
-    // texture
     0, 0,
     0, 1,
     1, 1,
     1, 0
 ];
 class Game extends g.Renderer {
+    v = g.createVBO(this.gl, squareV);
+    texture;
+    texture2;
     constructor(canvas, w, h) {
         super(canvas, w, h);
-        this.v = g.createVBO(this.gl, squareV);
         this.camera = new g.OrthographicCamera(0, w, h, 0, 1, -1);
     }
     async init(gl) {
@@ -76,5 +77,4 @@ const main = async () => {
     await game.start();
 };
 addEventListener("load", main);
-//# sourceMappingURL=main.js.map
 //# sourceMappingURL=main.js.map

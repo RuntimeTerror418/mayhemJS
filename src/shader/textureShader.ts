@@ -1,6 +1,6 @@
 import {createShader} from "./shader.js";
 
-const vertexSource = `
+const texture_shader_vertexSource = `
 attribute vec3 position;
 attribute vec2 texture;
 
@@ -17,7 +17,7 @@ void main() {
 }
 `;
 
-const fragmentSource = `
+const texture_shader_fragmentSource = `
 precision mediump float;
 
 varying vec2 vTexCoord;
@@ -28,7 +28,7 @@ void main() {
 }`;
 
 const createTextureShader = (gl:WebGLRenderingContext) => {
-    return createShader(gl, vertexSource, fragmentSource);
+    return createShader(gl, texture_shader_vertexSource, texture_shader_fragmentSource);
 }
 
 export { createTextureShader }

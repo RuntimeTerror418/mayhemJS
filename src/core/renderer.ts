@@ -4,7 +4,7 @@ import {Camera} from "./camera.js";
 import {createTextureShader} from "../shader/textureShader.js";
 import {Shader} from "../shader/shader";
 
-const glAttributes = {
+const renderer_glAttributes = {
     alpha: true,
     antialias: true,
     depth: true,
@@ -36,7 +36,7 @@ abstract class Renderer implements Renderable {
 
         this.#setSize(width, height);
 
-        this.#gl = this.canvas.getContext("webgl", glAttributes) as WebGLRenderingContext;
+        this.#gl = this.canvas.getContext("webgl", renderer_glAttributes) as WebGLRenderingContext;
         if(!this.#gl || !(this.#gl instanceof WebGLRenderingContext))
             throw new Error("Failed to initialize webgl 1.0; please upgrade your graphics card");
 

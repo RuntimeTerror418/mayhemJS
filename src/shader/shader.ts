@@ -73,6 +73,13 @@ const setUniforms = (params = { }) => { LAST_SHADER.uniformSetters(params); }
 
 const setAttributes = (params = { }) => { LAST_SHADER.enableAttributes(params) }
 
+/**
+ * CPP return voids
+ * @param gl 
+ * @param vSource 
+ * @param fSource 
+ * @returns 
+ */
 const createShaderProgram = (gl: WebGLRenderingContext, vSource, fSource) => {
     const vertexShader = loadAndCompileShader(gl, gl.VERTEX_SHADER, vSource);
     const fragmentShader = loadAndCompileShader(gl, gl.FRAGMENT_SHADER, fSource);

@@ -1,6 +1,12 @@
 import { Mat4 } from "../maths/mat4.js";
 import { Vector3 } from "../maths/vector3.js";
 export class Camera {
+    translation;
+    rotation;
+    scale;
+    shouldUpdate;
+    projectionMatrix;
+    viewMatrix;
     constructor() {
         this.translation = new Vector3(0, 0, 0);
         this.rotation = new Vector3(0, 0, 0);
@@ -8,6 +14,12 @@ export class Camera {
     }
 }
 class OrthographicCamera extends Camera {
+    left;
+    right;
+    bottom;
+    top;
+    near;
+    far;
     constructor(left, right, bottom, top, near = 1, far = -1) {
         super();
         this.set(left, right, bottom, top, near, far);

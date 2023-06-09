@@ -1,5 +1,3 @@
-let unit = 0;
-
 export class Texture {
 
     unit: number;
@@ -16,7 +14,6 @@ export class Texture {
 
 
     constructor(gl: WebGLRenderingContext, params: any = { }) {
-        this.unit = unit++;
         this.#destFormat = params.destFormat || gl.RGBA;
         this.#srcFormat = params.srcFormat || gl.RGBA;
         this.#type = params.type || gl.UNSIGNED_BYTE;

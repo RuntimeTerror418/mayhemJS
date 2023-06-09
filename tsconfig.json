@@ -1,12 +1,13 @@
 {
   "compilerOptions": {
     "module": "es2022",
-    "target": "es2021",
+    "target": "es2022",
     "lib": [
-      "es2021",
+      "es2022",
       "dom"
     ],
-    "sourceMap": true
+    "sourceMap": true,
+    "removeComments": true
   },
   "exclude": [
     "node_modules"
