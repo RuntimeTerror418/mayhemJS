@@ -1,4 +1,7 @@
 *.txt
 *.map
-src/*.js
+*.js
 example/
+
+!mayhem.js
+!oneFile.js
