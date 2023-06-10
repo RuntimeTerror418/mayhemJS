@@ -3,5 +3,5 @@
 example/
 
 #includelist some folder
-!build/
-!tools/
+!build/mayhem.js
+!tools/oneFile.js
