@@ -1,7 +1,7 @@
-*.txt
 *.map
 *.js
 example/
 
-!*/build/*
-!*/tools/*
+#includelist some folder
+!build/
+!tools/
