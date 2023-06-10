@@ -1,7 +1,7 @@
 import { Clock } from "./clock.js";
 import { createBasicShader } from "../shader/basicShader.js";
 import { createTextureShader } from "../shader/textureShader.js";
-const glAttributes = {
+const renderer_glAttributes = {
     alpha: true,
     antialias: true,
     depth: true,
@@ -25,7 +25,7 @@ class Renderer {
         if (!(this.canvas instanceof HTMLCanvasElement))
             throw new Error("Your Browser does not support HTML5 Canvas; Please upgrade to a supported browser");
         this.#setSize(width, height);
-        this.#gl = this.canvas.getContext("webgl", glAttributes);
+        this.#gl = this.canvas.getContext("webgl", renderer_glAttributes);
         if (!this.#gl || !(this.#gl instanceof WebGLRenderingContext))
             throw new Error("Failed to initialize webgl 1.0; please upgrade your graphics card");
         this.BASIC_SHADER = createBasicShader(this.#gl);

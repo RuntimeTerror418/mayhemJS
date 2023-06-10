@@ -1,4 +1,3 @@
-let unit = 0;
 export class Texture {
     unit;
     data;
@@ -10,7 +9,6 @@ export class Texture {
     #type;
     #gl;
     constructor(gl, params = {}) {
-        this.unit = unit++;
         this.#destFormat = params.destFormat || gl.RGBA;
         this.#srcFormat = params.srcFormat || gl.RGBA;
         this.#type = params.type || gl.UNSIGNED_BYTE;

@@ -1,5 +1,5 @@
 import { createShader } from "./shader.js";
-const vertexSource = `
+const texture_shader_vertexSource = `
 attribute vec3 position;
 attribute vec2 texture;
 
@@ -15,7 +15,7 @@ void main() {
     vTexCoord = texture;
 }
 `;
-const fragmentSource = `
+const texture_shader_fragmentSource = `
 precision mediump float;
 
 varying vec2 vTexCoord;
@@ -25,7 +25,7 @@ void main() {
     gl_FragColor = texture2D(image, vTexCoord);
 }`;
 const createTextureShader = (gl) => {
-    return createShader(gl, vertexSource, fragmentSource);
+    return createShader(gl, texture_shader_vertexSource, texture_shader_fragmentSource);
 };
 export { createTextureShader };
 //# sourceMappingURL=textureShader.js.map

@@ -3,11 +3,11 @@
     "module": "es2022",
     "target": "es2022",
     "lib": [
-      "es2022",
+      "es2021",
       "dom"
     ],
     "sourceMap": true,
-    "removeComments": true
+    "removeComments": true,
   },
   "exclude": [
     "node_modules"
