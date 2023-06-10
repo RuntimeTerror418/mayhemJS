@@ -3,5 +3,5 @@
 *.js
 example/
 
-!mayhem.js
-!oneFile.js
+!*/build/*
+!*/tools/*
