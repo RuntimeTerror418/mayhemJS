@@ -109,7 +109,6 @@ export const Mat4 = {
         ];
     },
 
-
     transpose(m): mat4 {
         return [
             m[0], m[4], m[8], m[12],
@@ -120,19 +119,19 @@ export const Mat4 = {
     },
 
     inverse(m): mat4 {
-        const m00 = m[0 * 4 + 0];
-        const m01 = m[0 * 4 + 1];
-        const m02 = m[0 * 4 + 2];
-        const m03 = m[0 * 4 + 3];
-        const m10 = m[1 * 4 + 0];
-        const m11 = m[1 * 4 + 1];
-        const m12 = m[1 * 4 + 2];
-        const m13 = m[1 * 4 + 3];
-        const m20 = m[2 * 4 + 0];
+        const m00 = m[0];
+        const m01 = m[1];
+        const m02 = m[2];
+        const m03 = m[3];
+        const m10 = m[4];
+        const m11 = m[5];
+        const m12 = m[6];
+        const m13 = m[7];
+        const m20 = m[8];
         const m21 = m[2 * 4 + 1];
         const m22 = m[2 * 4 + 2];
         const m23 = m[2 * 4 + 3];
-        const m30 = m[3 * 4 + 0];
+        const m30 = m[12];
         const m31 = m[3 * 4 + 1];
         const m32 = m[3 * 4 + 2];
         const m33 = m[3 * 4 + 3];
@@ -210,30 +209,30 @@ export const Mat4 = {
         const a02 = a[2];
         const a03 = a[3];
         const a10 = a[4];
-        const a11 = a[1 * 4 + 1];
-        const a12 = a[1 * 4 + 2];
-        const a13 = a[1 * 4 + 3];
-        const a20 = a[2 * 4 + 0];
+        const a11 = a[5];
+        const a12 = a[6];
+        const a13 = a[7];
+        const a20 = a[8];
         const a21 = a[2 * 4 + 1];
         const a22 = a[2 * 4 + 2];
         const a23 = a[2 * 4 + 3];
-        const a30 = a[3 * 4 + 0];
+        const a30 = a[12];
         const a31 = a[3 * 4 + 1];
         const a32 = a[3 * 4 + 2];
         const a33 = a[3 * 4 + 3];
-        const b00 = b[0 * 4 + 0];
-        const b01 = b[0 * 4 + 1];
-        const b02 = b[0 * 4 + 2];
-        const b03 = b[0 * 4 + 3];
-        const b10 = b[1 * 4 + 0];
-        const b11 = b[1 * 4 + 1];
-        const b12 = b[1 * 4 + 2];
-        const b13 = b[1 * 4 + 3];
-        const b20 = b[2 * 4 + 0];
+        const b00 = b[0];
+        const b01 = b[1];
+        const b02 = b[2];
+        const b03 = b[3];
+        const b10 = b[4];
+        const b11 = b[5];
+        const b12 = b[6];
+        const b13 = b[7];
+        const b20 = b[8];
         const b21 = b[2 * 4 + 1];
         const b22 = b[2 * 4 + 2];
         const b23 = b[2 * 4 + 3];
-        const b30 = b[3 * 4 + 0];
+        const b30 = b[12];
         const b31 = b[3 * 4 + 1];
         const b33 = b[3 * 4 + 3];
         const b32 = b[3 * 4 + 2];

@@ -1,18 +1,17 @@
 import {Mat4} from "../maths/mat4.js";
-import {Vector3} from "../maths/vector3.js";
+
 export abstract class Camera {
 
     translation: vector3;
     rotation: vector3;
     scale: vector3;
-    shouldUpdate: boolean;
     projectionMatrix: mat4;
     viewMatrix: mat4;
 
     protected constructor() {
-        this.translation = new Vector3(0, 0, 0);
-        this.rotation = new Vector3(0, 0, 0);
-        this.scale = new Vector3(1, 1, 1);
+        this.translation = [0, 0, 0];
+        this.rotation = [0, 0, 0];
+        this.scale = [1, 1, 1];
     }
 
     abstract update();
@@ -53,12 +52,24 @@ class OrthographicCamera extends Camera {
             (this.near + this.far) / (this.near - this.far),
             1,
         ];
-        let m = Mat4.zRotate(Mat4.identity(), this.rotation.z);
-        m = Mat4.yRotate(m, this.rotation.y);
-        m = Mat4.xRotate(m, this.rotation.x);
-        m = Mat4.scale(m, this.scale.x, this.scale.y, this.scale.z);
-        m = Mat4.translate(m, this.translation.x, this.translation.y, this.translation.z);
+        let m = Mat4.zRotate(Mat4.identity(), this.rotation[2]);
+        m = Mat4.yRotate(m, this.rotation[1]);
+        m = Mat4.xRotate(m, this.rotation[0]);
+        m = Mat4.scale(m, ...this.scale);
+        m = Mat4.translate(m, ...this.translation);
         this.viewMatrix = Mat4.inverse(m);
+    }
+
+}
+
+
+class PerspectiveCamera extends Camera {
+
+    constructor() {
+        super();
+    }
+
+    update() {
     }
 
 }

@@ -31,7 +31,7 @@ const MODULE_FILE_PATH = "../build/mayhem.js";
                 }
             }
         }
-    };
+    }
 
     // first clear module paths
     fs.writeFileSync(MODULE_FILE_PATH, "", {encoding:"utf-8"});
@@ -48,6 +48,8 @@ const MODULE_FILE_PATH = "../build/mayhem.js";
                 }
             }
         });
+
+    console.log("Build Successful");
 
 })();
 

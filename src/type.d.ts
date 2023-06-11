@@ -1,3 +1,7 @@
+type vector2 = [number, number];
+
+type vector3 = [number, number, number];
+
 type mat3 = [
     number, number, number,
     number, number, number,
@@ -16,7 +20,6 @@ interface camera {
     translation: vector3,
     rotation: vector3,
     scale: vector3,
-    shouldUpdate: boolean
 }
 
 interface Renderable {
@@ -24,13 +27,4 @@ interface Renderable {
     width: number,
     height: number,
     camera: camera,
-}
-
-interface vector2 {
-    x: number,
-    y: number
-}
-
-interface vector3 extends vector2 {
-    z: number
 }
