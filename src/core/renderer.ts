@@ -1,98 +1,74 @@
-import {Clock} from "./clock.js";
-import {createBasicShader} from "../shader/basicShader.js";
-import {Camera} from "./camera.js";
-import {createTextureShader} from "../shader/textureShader.js";
-import {Shader} from "../shader/shader";
+abstract class Renderer {
 
-const renderer_glAttributes = {
-    alpha: true,
-    antialias: true,
-    depth: true,
-    failIfMajorPerformanceCaveat: false,
-    powerPreference: "default",
-    premultipliedAlpha: true,
-    preserveDrawingBuffer: false,
-    stencil: false
-};
+    #canvas: HTMLCanvasElement;
+    #size = [300, 150];
+    #width: number = 300;
+    #height: number = 150;
+    #lastTime: number = 0;
+    #useFixTimeStep = false;
+    #deltaTime = 0;
+    protected gl: WebGLRenderingContext;
 
+    protected constructor(el: HTMLCanvasElement | null,
+                          w: number = 300,
+                          h: number = 150,
+                          renderingContext = { })
+    {
+        this.#canvas = el instanceof HTMLCanvasElement ? el : document.createElement("canvas");
+        if(!(this.#canvas instanceof HTMLCanvasElement))
+            throw new Error("Mayhem unable to initialize Canvas Renderer");
 
-abstract class Renderer implements Renderable {
+        this.gl = this.#canvas.getContext("webgl", renderingContext) as WebGLRenderingContext;
+        if(!(this.gl instanceof WebGLRenderingContext))
+            throw new Error("Mayhem unable to initialize webgl rendering context");
 
-    canvas: HTMLCanvasElement;
-    width: number;
-    height: number;
-    camera: Camera | null;
-    clock: Clock;
-
-    BASIC_SHADER: Shader;
-    TEXTURE_SHADER: Shader;
-
-    readonly #gl: WebGLRenderingContext;
-
-    protected constructor(canvas: HTMLCanvasElement | null, width: number, height: number) {
-        this.canvas = <HTMLCanvasElement>canvas;
-        if(!(this.canvas instanceof HTMLCanvasElement))
-            throw new Error("Your Browser does not support HTML5 Canvas; Please upgrade to a supported browser");
-
-        this.#setSize(width, height);
-
-        this.#gl = this.canvas.getContext("webgl", renderer_glAttributes) as WebGLRenderingContext;
-        if(!this.#gl || !(this.#gl instanceof WebGLRenderingContext))
-            throw new Error("Failed to initialize webgl 1.0; please upgrade your graphics card");
-
-        this.BASIC_SHADER = createBasicShader(this.#gl);
-        this.TEXTURE_SHADER = createTextureShader(this.#gl);
-        this.clock = new Clock();
-
-        window.addEventListener("resize", e => this.onResize(this.#gl, e));
+        this.width = w;
+        this.height = h;
     }
 
-    async start() {
+    abstract onStart(gl: WebGLRenderingContext);
+    abstract onUpdate(dt: number);
+    abstract onDraw(gl: WebGLRenderingContext);
+
+    setTimeStep(v: number): void {
+        this.#deltaTime = v;
+    }
+
+    start() {
+        this.onStart(this.gl);
+        this.#lastTime = performance.now();
         const loop = () => {
-            this.update(this.clock.getDelta());
-            this.camera.update();
-            this.#gl.viewport(0, 0, this.width, this.height);
-            this.#setShaderDefault();
-            this.draw(this.#gl);
+            const now = performance.now();
+            let dt = this.#useFixTimeStep ? this.#deltaTime : (now - this.#lastTime) * 0.001;
+            this.#lastTime = now;
+            this.onUpdate(dt);
+            this.onDraw(this.gl);
             requestAnimationFrame(loop);
         }
-        if(!this.camera) throw new Error("There is no camera for this renderer");
-        await this.init(this.#gl);
-        this.clock.start();
         requestAnimationFrame(loop);
     }
 
-    #setSize(w: number, h: number) {
-        this.width = this.canvas.width = w;
-        this.height = this.canvas.height = h;
+    set width(n: number) {
+        this.#width = n;
+        this.#canvas.width = n;
     }
 
-    #setShaderDefault() {
-        this.BASIC_SHADER.use();
-        this.BASIC_SHADER.uniformSetters({
-            projectionMatrix: this.camera.projectionMatrix,
-            viewMatrix: this.camera.viewMatrix,
-        });
-        this.TEXTURE_SHADER.use();
-        this.TEXTURE_SHADER.uniformSetters({
-            projectionMatrix: this.camera.projectionMatrix,
-            viewMatrix: this.camera.viewMatrix,
-        });
+    get width(): number { return this.#width; }
+
+    set height(n: number) {
+        this.#height = n;
+        this.#canvas.height = n;
     }
 
-    get gl(){ return this.#gl; }
+    get height(): number { return this.#height; }
 
-    abstract init(gl: WebGLRenderingContext);
+    getBoundingRect(){
+        return this.#canvas.getBoundingClientRect();
+    }
 
-    abstract update(dt: number): void;
-
-    abstract draw(gl: WebGLRenderingContext): void;
-
-    abstract onResize(gl:WebGLRenderingContext, e: UIEvent);
-
+    getElement(): HTMLCanvasElement {
+        return this.#canvas;
+    }
 }
 
-
-export {
-    Renderer
-}
+export { Renderer };

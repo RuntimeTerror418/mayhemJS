@@ -1,9 +1,5 @@
 export const Mat4 = {
-
-    /**
-     * Create an Identity Matrix
-     */
-    identity(): mat4 {
+    identity() {
         return [
             1, 0, 0, 0,
             0, 1, 0, 0,
@@ -11,14 +7,7 @@ export const Mat4 = {
             0, 0, 0, 1,
         ];
     },
-
-    /**
-     * Create a translation matrix
-     * @param tx x-translation
-     * @param ty y-translation
-     * @param tz z-translation
-     */
-    translation(tx: number, ty: number, tz: number): mat4 {
+    translation(tx, ty, tz) {
         return [
             1, 0, 0, 0,
             0, 1, 0, 0,
@@ -26,12 +15,7 @@ export const Mat4 = {
             tx, ty, tz, 1,
         ];
     },
-
-    /**
-     * create a rotation matrix for the x-axis
-     * @param a angle to rotate by
-     */
-    xRotation(a: number): mat4 {
+    xRotation(a) {
         const c = Math.cos(a);
         const s = Math.sin(a);
         return [
@@ -41,12 +25,7 @@ export const Mat4 = {
             0, 0, 0, 1,
         ];
     },
-
-    /**
-     * create a rotation matrix for the y-axis
-     * @param a angle to rotate by
-     */
-    yRotation(a: number): mat4 {
+    yRotation(a) {
         const c = Math.cos(a);
         const s = Math.sin(a);
         return [
@@ -56,12 +35,7 @@ export const Mat4 = {
             0, 0, 0, 1,
         ];
     },
-
-    /**
-     * create a rotation matrix for the z-axis
-     * @param a angle to rotate by
-     */
-    zRotation(a: number): mat4 {
+    zRotation(a) {
         const c = Math.cos(a);
         const s = Math.sin(a);
         return [
@@ -71,14 +45,7 @@ export const Mat4 = {
             0, 0, 0, 1,
         ];
     },
-
-    /**
-     * create a scaling matrix
-     * @param sx value to scale by on the x-axis
-     * @param sy value to scale by on the y-axis
-     * @param sz value to scale by on the z-axis
-     */
-    scaling(sx: number, sy: number, sz: number): mat4 {
+    scaling(sx, sy, sz = 0) {
         return [
             sx, 0, 0, 0,
             0, sy, 0, 0,
@@ -86,30 +53,18 @@ export const Mat4 = {
             0, 0, 0, 1,
         ];
     },
-
-    /**
-     * creates an orthographic projectionMatrix
-     * @param left
-     * @param right
-     * @param bottom
-     * @param top
-     * @param near
-     * @param far
-     */
-    ortho(left: number, right, bottom, top, near, far): mat4 {
+    ortho(left, right, bottom, top, near, far) {
         return [
             2 / (right - left), 0, 0, 0,
             0, 2 / (top - bottom), 0, 0,
             0, 0, 2 / (near - far), 0,
-
             (left + right) / (left - right),
             (bottom + top) / (bottom - top),
             (near + far) / (near - far),
             1,
         ];
     },
-
-    transpose(m): mat4 {
+    transpose(m) {
         return [
             m[0], m[4], m[8], m[12],
             m[1], m[5], m[9], m[13],
@@ -117,8 +72,7 @@ export const Mat4 = {
             m[3], m[7], m[11], m[15],
         ];
     },
-
-    inverse(m): mat4 {
+    inverse(m) {
         const m00 = m[0];
         const m01 = m[1];
         const m02 = m[2];
@@ -135,16 +89,16 @@ export const Mat4 = {
         const m31 = m[3 * 4 + 1];
         const m32 = m[3 * 4 + 2];
         const m33 = m[3 * 4 + 3];
-        const tmp_0  = m22 * m33;
-        const tmp_1  = m32 * m23;
-        const tmp_2  = m12 * m33;
-        const tmp_3  = m32 * m13;
-        const tmp_4  = m12 * m23;
-        const tmp_5  = m22 * m13;
-        const tmp_6  = m02 * m33;
-        const tmp_7  = m32 * m03;
-        const tmp_8  = m02 * m23;
-        const tmp_9  = m22 * m03;
+        const tmp_0 = m22 * m33;
+        const tmp_1 = m32 * m23;
+        const tmp_2 = m12 * m33;
+        const tmp_3 = m32 * m13;
+        const tmp_4 = m12 * m23;
+        const tmp_5 = m22 * m13;
+        const tmp_6 = m02 * m33;
+        const tmp_7 = m32 * m03;
+        const tmp_8 = m02 * m23;
+        const tmp_9 = m22 * m03;
         const tmp_10 = m02 * m13;
         const tmp_11 = m12 * m03;
         const tmp_12 = m20 * m31;
@@ -159,7 +113,6 @@ export const Mat4 = {
         const tmp_21 = m20 * m01;
         const tmp_22 = m00 * m11;
         const tmp_23 = m10 * m01;
-
         const t0 = (tmp_0 * m11 + tmp_3 * m21 + tmp_4 * m31) -
             (tmp_1 * m11 + tmp_2 * m21 + tmp_5 * m31);
         const t1 = (tmp_1 * m01 + tmp_6 * m21 + tmp_9 * m31) -
@@ -168,9 +121,7 @@ export const Mat4 = {
             (tmp_3 * m01 + tmp_6 * m11 + tmp_11 * m31);
         const t3 = (tmp_5 * m01 + tmp_8 * m11 + tmp_11 * m21) -
             (tmp_4 * m01 + tmp_9 * m11 + tmp_10 * m21);
-
         const d = 1.0 / (m00 * t0 + m10 * t1 + m20 * t2 + m30 * t3);
-
         return [
             d * t0,
             d * t1,
@@ -202,8 +153,7 @@ export const Mat4 = {
                 (tmp_20 * m12 + tmp_23 * m22 + tmp_17 * m02))
         ];
     },
-
-    multiply(a, b): mat4 {
+    multiply(a, b) {
         const a00 = a[0];
         const a01 = a[1];
         const a02 = a[2];
@@ -255,20 +205,20 @@ export const Mat4 = {
             b30 * a03 + b31 * a13 + b32 * a23 + b33 * a33,
         ];
     },
-
-    translate(m, tx, ty , tz = 0): mat4 {
+    translate(m, tx, ty, tz = 0) {
         return Mat4.multiply(m, Mat4.translation(tx, ty, tz));
     },
-    xRotate(m, angleInRadians = 0): mat4 {
+    xRotate(m, angleInRadians = 0) {
         return Mat4.multiply(m, Mat4.xRotation(angleInRadians));
     },
-    yRotate(m, angleInRadians = 0): mat4 {
+    yRotate(m, angleInRadians = 0) {
         return Mat4.multiply(m, Mat4.yRotation(angleInRadians));
     },
-    zRotate(m, angleInRadians = 0): mat4 {
+    zRotate(m, angleInRadians = 0) {
         return Mat4.multiply(m, Mat4.zRotation(angleInRadians));
     },
     scale(m, sx = 1, sy = 1, sz = 1) {
         return Mat4.multiply(m, Mat4.scaling(sx, sy, sz));
     },
 };
+//# sourceMappingURL=mat4.js.map
